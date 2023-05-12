@@ -42,11 +42,17 @@
             BtnPencil = new Button();
             BtnEraser = new Button();
             panel2 = new Panel();
+            panel4 = new Panel();
+            BtnClear = new Button();
+            BtnSave = new Button();
             Pic = new PictureBox();
+            SaveFileDialog1 = new SaveFileDialog();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NumericLineWitdth).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ColorPicker).BeginInit();
             panel3.SuspendLayout();
+            panel2.SuspendLayout();
+            panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Pic).BeginInit();
             SuspendLayout();
             // 
@@ -77,11 +83,12 @@
             // NumericLineWitdth
             // 
             NumericLineWitdth.Location = new Point(1030, 35);
+            NumericLineWitdth.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             NumericLineWitdth.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             NumericLineWitdth.Name = "NumericLineWitdth";
             NumericLineWitdth.Size = new Size(52, 23);
             NumericLineWitdth.TabIndex = 10;
-            NumericLineWitdth.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            NumericLineWitdth.Value = new decimal(new int[] { 5, 0, 0, 0 });
             NumericLineWitdth.ValueChanged += NumericLineWitdth_ValueChanged;
             // 
             // PicColor
@@ -249,11 +256,56 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(64, 64, 64);
+            panel2.Controls.Add(panel4);
             panel2.Dock = DockStyle.Bottom;
             panel2.Location = new Point(0, 565);
             panel2.Name = "panel2";
             panel2.Size = new Size(1094, 50);
             panel2.TabIndex = 1;
+            // 
+            // panel4
+            // 
+            panel4.BackColor = Color.Black;
+            panel4.Controls.Add(BtnClear);
+            panel4.Controls.Add(BtnSave);
+            panel4.Location = new Point(5, 5);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(176, 40);
+            panel4.TabIndex = 9;
+            // 
+            // BtnClear
+            // 
+            BtnClear.BackColor = Color.FromArgb(64, 64, 64);
+            BtnClear.FlatAppearance.MouseDownBackColor = Color.Silver;
+            BtnClear.FlatAppearance.MouseOverBackColor = Color.Gray;
+            BtnClear.FlatStyle = FlatStyle.Flat;
+            BtnClear.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            BtnClear.ForeColor = Color.White;
+            BtnClear.ImageAlign = ContentAlignment.TopCenter;
+            BtnClear.Location = new Point(91, 5);
+            BtnClear.Name = "BtnClear";
+            BtnClear.Size = new Size(80, 30);
+            BtnClear.TabIndex = 9;
+            BtnClear.Text = "Очистить";
+            BtnClear.UseVisualStyleBackColor = false;
+            BtnClear.Click += BtnClear_Click;
+            // 
+            // BtnSave
+            // 
+            BtnSave.BackColor = Color.FromArgb(64, 64, 64);
+            BtnSave.FlatAppearance.MouseDownBackColor = Color.Silver;
+            BtnSave.FlatAppearance.MouseOverBackColor = Color.Gray;
+            BtnSave.FlatStyle = FlatStyle.Flat;
+            BtnSave.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            BtnSave.ForeColor = Color.White;
+            BtnSave.ImageAlign = ContentAlignment.TopCenter;
+            BtnSave.Location = new Point(5, 5);
+            BtnSave.Name = "BtnSave";
+            BtnSave.Size = new Size(80, 30);
+            BtnSave.TabIndex = 8;
+            BtnSave.Text = "Сохранить";
+            BtnSave.UseVisualStyleBackColor = false;
+            BtnSave.Click += BtnSave_Click;
             // 
             // Pic
             // 
@@ -276,6 +328,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(Pic);
+            MinimumSize = new Size(1110, 654);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
@@ -284,6 +337,8 @@
             ((System.ComponentModel.ISupportInitialize)NumericLineWitdth).EndInit();
             ((System.ComponentModel.ISupportInitialize)ColorPicker).EndInit();
             panel3.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)Pic).EndInit();
             ResumeLayout(false);
         }
@@ -305,5 +360,9 @@
         private PictureBox ColorPicker;
         private NumericUpDown NumericLineWitdth;
         private Label label1;
+        private Button BtnSave;
+        private Panel panel4;
+        private Button BtnClear;
+        private SaveFileDialog SaveFileDialog1;
     }
 }
