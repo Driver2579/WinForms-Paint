@@ -74,7 +74,7 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = Color.White;
-            label1.Location = new Point(1030, 65);
+            label1.Location = new Point(1031, 65);
             label1.Name = "label1";
             label1.Size = new Size(52, 15);
             label1.TabIndex = 11;
@@ -82,7 +82,7 @@
             // 
             // NumericLineWitdth
             // 
-            NumericLineWitdth.Location = new Point(1030, 35);
+            NumericLineWitdth.Location = new Point(1031, 35);
             NumericLineWitdth.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             NumericLineWitdth.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             NumericLineWitdth.Name = "NumericLineWitdth";
@@ -125,7 +125,7 @@
             panel3.Controls.Add(BtnEraser);
             panel3.Location = new Point(405, 15);
             panel3.Name = "panel3";
-            panel3.Size = new Size(615, 80);
+            panel3.Size = new Size(616, 80);
             panel3.TabIndex = 8;
             // 
             // BtnLine
@@ -145,6 +145,7 @@
             BtnLine.Text = "Линия";
             BtnLine.TextAlign = ContentAlignment.BottomCenter;
             BtnLine.UseVisualStyleBackColor = false;
+            BtnLine.Click += BtnLine_Click;
             // 
             // BtnColor
             // 
@@ -179,6 +180,7 @@
             BtnRect.Text = "Прямоугольник";
             BtnRect.TextAlign = ContentAlignment.BottomCenter;
             BtnRect.UseVisualStyleBackColor = false;
+            BtnRect.Click += BtnRect_Click;
             // 
             // BtnFill
             // 
@@ -196,6 +198,7 @@
             BtnFill.Text = "Заливка";
             BtnFill.TextAlign = ContentAlignment.BottomCenter;
             BtnFill.UseVisualStyleBackColor = false;
+            BtnFill.Click += BtnFill_Click;
             // 
             // BtnEllipse
             // 
@@ -214,6 +217,7 @@
             BtnEllipse.Text = "Эллипс";
             BtnEllipse.TextAlign = ContentAlignment.BottomCenter;
             BtnEllipse.UseVisualStyleBackColor = false;
+            BtnEllipse.Click += BtnEllipse_Click;
             // 
             // BtnPencil
             // 
@@ -316,6 +320,7 @@
             Pic.Size = new Size(1094, 615);
             Pic.TabIndex = 2;
             Pic.TabStop = false;
+            Pic.Paint += Pic_Paint;
             Pic.MouseDown += Pic_MouseDown;
             Pic.MouseMove += Pic_MouseMove;
             Pic.MouseUp += Pic_MouseUp;
