@@ -76,7 +76,7 @@ namespace Paint
 
         private void BtnSave_Click(object Sender, EventArgs E)
         {
-            FormController.SaveImage(Pic, SaveFileDialog1);
+            Controller.SaveImage(Pic, SaveFileDialog1);
         }
 
         private void Pic_Paint(object Sender, PaintEventArgs E)

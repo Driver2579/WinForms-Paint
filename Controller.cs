@@ -180,7 +180,7 @@ namespace Paint
             Pic.Image = Bm;
         }
 
-        public void SaveImage(PictureBox Pic, SaveFileDialog SaveDialog)
+        public static void SaveImage(PictureBox Pic, SaveFileDialog SaveDialog)
         {
             SaveDialog.Filter = "JPG(*.JPG)|*.jpg";
 
@@ -191,7 +191,7 @@ namespace Paint
         }
 
         // Находит позицию PictureBox на которую наведена мышка 
-        private Point FindPoint(PictureBox PB, Point MousePos)
+        private static Point FindPoint(PictureBox PB, Point MousePos)
         {
             float PX = (float)PB.Image.Width / PB.Width;
             PX *= MousePos.X;
@@ -202,7 +202,7 @@ namespace Paint
             return new Point((int)PX, (int)PY);
         }
 
-        private void Validate(Bitmap Bm, Stack<Point> PointsStack, int X, int Y, Color OldColor, Color NewColor)
+        private static void Validate(Bitmap Bm, Stack<Point> PointsStack, int X, int Y, Color OldColor, Color NewColor)
         {
             Color PixelColor = Bm.GetPixel(X, Y);
 
@@ -213,13 +213,13 @@ namespace Paint
             }
         }
 
-        public void Fill(Bitmap Bm, PictureBox Pic, Point FillStartPoint, Color NewColor)
+        public static void Fill(Bitmap Bm, PictureBox Pic, Point FillStartPoint, Color NewColor)
         {
             // Запоминаем текущий цвет пикселя
             Color OldColor = Bm.GetPixel(FillStartPoint.X, FillStartPoint.Y);
 
             // Создаем стэк пикселей и добавляем в него пиксель, с которого начнется заливка
-            Stack<Point> Pixels = new Stack<Point>();
+            Stack<Point> Pixels = new();
             Pixels.Push(FillStartPoint);
 
             // Заливка не должна работать, если область уже залита выбранным цветом
