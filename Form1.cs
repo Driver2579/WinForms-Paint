@@ -20,7 +20,7 @@ namespace Paint
 
         private void Pic_MouseMove(object Sender, MouseEventArgs E)
         {
-            FormController.Draw(E.Location, Pic);
+            FormController.Draw(Pic, E.Location);
         }
 
         private void Pic_MouseUp(object Sender, MouseEventArgs E)
