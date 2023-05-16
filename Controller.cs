@@ -56,7 +56,7 @@ namespace Paint
             Rec.Location = StartPoint;
         }
 
-        public void Draw(Point MouseLocation, PictureBox Pic)
+        public void Draw(PictureBox Pic, Point MouseLocation)
         {
             if (!bPaint)
             {
@@ -66,29 +66,16 @@ namespace Paint
             switch (CurrentTool)
             {
                 case Tool.Pen:
-                    // Устанавливаем конечную точку, куда пойдет линия
-                    EndPoint = MouseLocation;
-
-                    // Рисуем линию от начальной до конечной точки
-                    Gr.DrawLine(BasicPen, StartPoint, EndPoint);
-
-                    // Устанавливаем начальную точку в место, где находится мышка
-                    StartPoint = EndPoint;
+                    DrawLine(BasicPen, MouseLocation);
 
                     break;
 
                 case Tool.Eraser:
-                    // Устанавливаем конечную точку, куда пойдет линия
-                    EndPoint = MouseLocation;
-
-                    // Рисуем линию от начальной до конечной точки
-                    Gr.DrawLine(Eraser, StartPoint, EndPoint);
-
-                    // Устанавливаем начальную точку в место, где находится мышка
-                    StartPoint = EndPoint;
+                    DrawLine(Eraser, MouseLocation);
 
                     break;
 
+                // Рассчитываем новый размер фигуры, если выбрана одна из них
                 case Tool.Ellipse:
                 case Tool.Rectangle:
                 case Tool.Line:
@@ -103,48 +90,38 @@ namespace Paint
             Pic.Refresh();
         }
 
+        private void DrawLine(Pen PenToDrawWith, Point MouseLocation)
+        {
+            // Устанавливаем конечную точку, куда пойдет линия
+            EndPoint = MouseLocation;
+
+            // Рисуем линию от начальной до конечной точки
+            Gr.DrawLine(PenToDrawWith, StartPoint, EndPoint);
+
+            // Устанавливаем начальную точку в место, где находится мышка
+            StartPoint = EndPoint;
+        }
+
         public void EndDrawing(PictureBox Pic, Point MouseLocation)
         {
-            // Выключаем рисование
-            bPaint = false;
-
             Rec.Width = EndPoint.X - Rec.Location.X;
             Rec.Height = EndPoint.Y - Rec.Location.Y;
-
-            switch (CurrentTool)
+            
+            if (CurrentTool == Tool.Fill)
             {
-                // Заливка
-                case Tool.Fill:
-                    Point P = FindPoint(Pic, MouseLocation);
-                    Fill(Bm, P, BasicPen.Color);
+                Point FillStartPoint = FindPoint(Pic, MouseLocation);
+                Fill(Bm, Pic, FillStartPoint, BasicPen.Color);
+            }
+            else
+            {
+                DrawFigure(Gr);
 
-                    break;
-
-                // Коннечный результат эллипса
-                case Tool.Ellipse:
-                    Gr.DrawEllipse(BasicPen, Rec);
-
-                    break;
-
-                // Коннечный результат прямоугольника
-                case Tool.Rectangle:
-                    Gr.DrawRectangle(BasicPen,
-                        Math.Min(Rec.Location.X, EndPoint.X),
-                        Math.Min(Rec.Location.Y, EndPoint.Y),
-                        Math.Abs(Rec.Width),
-                        Math.Abs(Rec.Height));
-
-                    break;
-
-                // Коннечный результат линии
-                case Tool.Line:
-                    Gr.DrawLine(BasicPen, StartPoint, EndPoint);
-
-                    break;
+                // Обновляем картинку
+                Pic.Refresh();
             }
 
-            // Обновляем картинку
-            Pic.Refresh();
+            // Выключаем рисование
+            bPaint = false;
         }
 
         public void DrawFigure(Graphics GrToDrawOn)
@@ -236,7 +213,7 @@ namespace Paint
             }
         }
 
-        public void Fill(Bitmap Bm, Point FillStartPoint, Color NewColor)
+        public void Fill(Bitmap Bm, PictureBox Pic, Point FillStartPoint, Color NewColor)
         {
             // Запоминаем текущий цвет пикселя
             Color OldColor = Bm.GetPixel(FillStartPoint.X, FillStartPoint.Y);
@@ -264,6 +241,9 @@ namespace Paint
                     Validate(Bm, Pixels, P.X, P.Y + 1, OldColor, NewColor);
                 }
             }
+
+            // Обновляем картинку
+            Pic.Refresh();
         }
     }
 }
