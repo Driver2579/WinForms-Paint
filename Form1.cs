@@ -1,18 +1,11 @@
+using Paint.Enums;
+
 namespace Paint
 {
-    enum Tool
-    {
-        None,
-        Fill,
-        Pen,
-        Eraser,
-        Ellipse,
-        Rectangle,
-        Line
-    }
-
     public partial class Form1 : Form
     {
+        Controller FormController = new Controller();
+
         public Form1()
         {
             InitializeComponent();
@@ -63,6 +56,7 @@ namespace Paint
 
             // Устанавливаем начальную точку, от которой будет рисование
             StartPoint = E.Location;
+            EndPoint = StartPoint;
             Rec.Location = StartPoint;
         }
 
@@ -123,11 +117,20 @@ namespace Paint
 
             switch (CurrentTool)
             {
+                // Заливка
+                case Tool.Fill:
+                    Point P = FindPoint(Pic, E.Location);
+                    Fill(Bm, P, PicColor.BackColor);
+
+                    break;
+
+                // Коннечный результат эллипса
                 case Tool.Ellipse:
                     Gr.DrawEllipse(BasicPen, Rec);
 
                     break;
 
+                // Коннечный результат прямоугольника
                 case Tool.Rectangle:
                     Gr.DrawRectangle(BasicPen,
                         Math.Min(Rec.Location.X, EndPoint.X),
@@ -137,13 +140,22 @@ namespace Paint
 
                     break;
 
+                // Коннечный результат линии
                 case Tool.Line:
                     Gr.DrawLine(BasicPen, StartPoint, EndPoint);
 
                     break;
             }
 
+            // Обновляем картинку
             Pic.Refresh();
+        }
+
+        private void BtnColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog1.ShowDialog();
+            PicColor.BackColor = ColorDialog1.Color;
+            BasicPen.Color = ColorDialog1.Color;
         }
 
         private void BtnFill_Click(object Sender, EventArgs E)
@@ -227,6 +239,67 @@ namespace Paint
                     GrTemp.DrawLine(BasicPen, StartPoint, EndPoint);
 
                     break;
+            }
+        }
+
+        // Находит позицию PictureBox на которую наведена мышка 
+        private Point FindPoint(PictureBox PB, Point MousePos)
+        {
+            float PX = (float)PB.Image.Width / PB.Width;
+            PX *= MousePos.X;
+
+            float PY = (float)PB.Image.Height / PB.Height;
+            PY *= MousePos.Y;
+
+            return new Point((int)PX, (int)PY);
+        }
+
+        private void ColorPicker_MouseClick(object Sender, MouseEventArgs E)
+        {
+            Point Pos = FindPoint(ColorPicker, E.Location);
+
+            PicColor.BackColor = ((Bitmap)ColorPicker.Image).GetPixel(Pos.X, Pos.Y);
+            BasicPen.Color = PicColor.BackColor;
+        }
+
+        private void Validate(Bitmap Bm, Stack<Point> PointsStack, int X, int Y, Color OldColor, Color NewColor)
+        {
+            Color PixelColor = Bm.GetPixel(X, Y);
+
+            if (PixelColor == OldColor)
+            {
+                PointsStack.Push(new Point(X, Y));
+                Bm.SetPixel(X, Y, NewColor);
+            }
+        }
+
+        public void Fill(Bitmap Bm, Point FillStartPoint, Color NewColor)
+        {
+            // Запоминаем текущий цвет пикселя
+            Color OldColor = Bm.GetPixel(FillStartPoint.X, FillStartPoint.Y);
+
+            // Создаем стэк пикселей и добавляем в него пиксель, с которого начнется заливка
+            Stack<Point> Pixels = new Stack<Point>();
+            Pixels.Push(FillStartPoint);
+
+            // Заливка не должна работать, если область уже залита выбранным цветом
+            if (OldColor == NewColor)
+            {
+                return;
+            }
+
+            // Заливаем все соседние пиксели, до тех пор, пока валидация будет проходить успешно для каждого из соседнего пикселя
+            while (Pixels.Count > 0)
+            {
+                Point P = Pixels.Pop();
+
+                if (P.X > 0 && P.X < Bm.Width - 1 && P.Y > 0 && P.Y < Bm.Height - 1)
+                {
+                    Validate(Bm, Pixels, P.X - 1, P.Y, OldColor, NewColor);
+                    Validate(Bm, Pixels, P.X, P.Y - 1, OldColor, NewColor);
+                    Validate(Bm, Pixels, P.X + 1, P.Y, OldColor, NewColor);
+                    Validate(Bm, Pixels, P.X, P.Y + 1, OldColor, NewColor);
+                }
             }
         }
     }

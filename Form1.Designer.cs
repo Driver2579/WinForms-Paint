@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            PicColor = new Panel();
             label1 = new Label();
             NumericLineWitdth = new NumericUpDown();
-            PicColor = new Button();
             ColorPicker = new PictureBox();
             panel3 = new Panel();
             BtnLine = new Button();
@@ -47,6 +47,7 @@
             BtnSave = new Button();
             Pic = new PictureBox();
             SaveFileDialog1 = new SaveFileDialog();
+            ColorDialog1 = new ColorDialog();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NumericLineWitdth).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ColorPicker).BeginInit();
@@ -59,9 +60,9 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(64, 64, 64);
+            panel1.Controls.Add(PicColor);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(NumericLineWitdth);
-            panel1.Controls.Add(PicColor);
             panel1.Controls.Add(ColorPicker);
             panel1.Controls.Add(panel3);
             panel1.Dock = DockStyle.Top;
@@ -69,6 +70,14 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1094, 110);
             panel1.TabIndex = 0;
+            // 
+            // PicColor
+            // 
+            PicColor.BackColor = Color.Black;
+            PicColor.Location = new Point(345, 30);
+            PicColor.Name = "PicColor";
+            PicColor.Size = new Size(50, 50);
+            PicColor.TabIndex = 12;
             // 
             // label1
             // 
@@ -82,6 +91,7 @@
             // 
             // NumericLineWitdth
             // 
+            NumericLineWitdth.Cursor = Cursors.Hand;
             NumericLineWitdth.Location = new Point(1031, 35);
             NumericLineWitdth.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             NumericLineWitdth.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -91,20 +101,9 @@
             NumericLineWitdth.Value = new decimal(new int[] { 5, 0, 0, 0 });
             NumericLineWitdth.ValueChanged += NumericLineWitdth_ValueChanged;
             // 
-            // PicColor
-            // 
-            PicColor.BackColor = Color.Black;
-            PicColor.FlatAppearance.MouseDownBackColor = Color.Black;
-            PicColor.FlatAppearance.MouseOverBackColor = Color.Black;
-            PicColor.FlatStyle = FlatStyle.Flat;
-            PicColor.Location = new Point(345, 30);
-            PicColor.Name = "PicColor";
-            PicColor.Size = new Size(50, 50);
-            PicColor.TabIndex = 0;
-            PicColor.UseVisualStyleBackColor = false;
-            // 
             // ColorPicker
             // 
+            ColorPicker.Cursor = Cursors.Hand;
             ColorPicker.Image = Properties.Resources.ColorPalette;
             ColorPicker.Location = new Point(0, 0);
             ColorPicker.Name = "ColorPicker";
@@ -112,6 +111,7 @@
             ColorPicker.SizeMode = PictureBoxSizeMode.StretchImage;
             ColorPicker.TabIndex = 9;
             ColorPicker.TabStop = false;
+            ColorPicker.MouseClick += ColorPicker_MouseClick;
             // 
             // panel3
             // 
@@ -131,6 +131,7 @@
             // BtnLine
             // 
             BtnLine.BackColor = Color.FromArgb(64, 64, 64);
+            BtnLine.Cursor = Cursors.Hand;
             BtnLine.FlatAppearance.MouseDownBackColor = Color.Silver;
             BtnLine.FlatAppearance.MouseOverBackColor = Color.Gray;
             BtnLine.FlatStyle = FlatStyle.Flat;
@@ -150,6 +151,7 @@
             // BtnColor
             // 
             BtnColor.BackColor = Color.FromArgb(64, 64, 64);
+            BtnColor.Cursor = Cursors.Hand;
             BtnColor.FlatAppearance.MouseDownBackColor = Color.Silver;
             BtnColor.FlatAppearance.MouseOverBackColor = Color.Gray;
             BtnColor.FlatStyle = FlatStyle.Flat;
@@ -162,10 +164,12 @@
             BtnColor.Text = "Цвет";
             BtnColor.TextAlign = ContentAlignment.BottomCenter;
             BtnColor.UseVisualStyleBackColor = false;
+            BtnColor.Click += BtnColor_Click;
             // 
             // BtnRect
             // 
             BtnRect.BackColor = Color.FromArgb(64, 64, 64);
+            BtnRect.Cursor = Cursors.Hand;
             BtnRect.FlatAppearance.MouseDownBackColor = Color.Silver;
             BtnRect.FlatAppearance.MouseOverBackColor = Color.Gray;
             BtnRect.FlatStyle = FlatStyle.Flat;
@@ -185,6 +189,7 @@
             // BtnFill
             // 
             BtnFill.BackColor = Color.FromArgb(64, 64, 64);
+            BtnFill.Cursor = Cursors.Hand;
             BtnFill.FlatAppearance.MouseDownBackColor = Color.Silver;
             BtnFill.FlatAppearance.MouseOverBackColor = Color.Gray;
             BtnFill.FlatStyle = FlatStyle.Flat;
@@ -203,6 +208,7 @@
             // BtnEllipse
             // 
             BtnEllipse.BackColor = Color.FromArgb(64, 64, 64);
+            BtnEllipse.Cursor = Cursors.Hand;
             BtnEllipse.FlatAppearance.MouseDownBackColor = Color.Silver;
             BtnEllipse.FlatAppearance.MouseOverBackColor = Color.Gray;
             BtnEllipse.FlatStyle = FlatStyle.Flat;
@@ -222,6 +228,7 @@
             // BtnPencil
             // 
             BtnPencil.BackColor = Color.FromArgb(64, 64, 64);
+            BtnPencil.Cursor = Cursors.Hand;
             BtnPencil.FlatAppearance.MouseDownBackColor = Color.Silver;
             BtnPencil.FlatAppearance.MouseOverBackColor = Color.Gray;
             BtnPencil.FlatStyle = FlatStyle.Flat;
@@ -241,6 +248,7 @@
             // BtnEraser
             // 
             BtnEraser.BackColor = Color.FromArgb(64, 64, 64);
+            BtnEraser.Cursor = Cursors.Hand;
             BtnEraser.FlatAppearance.MouseDownBackColor = Color.Silver;
             BtnEraser.FlatAppearance.MouseOverBackColor = Color.Gray;
             BtnEraser.FlatStyle = FlatStyle.Flat;
@@ -280,6 +288,7 @@
             // BtnClear
             // 
             BtnClear.BackColor = Color.FromArgb(64, 64, 64);
+            BtnClear.Cursor = Cursors.Hand;
             BtnClear.FlatAppearance.MouseDownBackColor = Color.Silver;
             BtnClear.FlatAppearance.MouseOverBackColor = Color.Gray;
             BtnClear.FlatStyle = FlatStyle.Flat;
@@ -297,6 +306,7 @@
             // BtnSave
             // 
             BtnSave.BackColor = Color.FromArgb(64, 64, 64);
+            BtnSave.Cursor = Cursors.Hand;
             BtnSave.FlatAppearance.MouseDownBackColor = Color.Silver;
             BtnSave.FlatAppearance.MouseOverBackColor = Color.Gray;
             BtnSave.FlatStyle = FlatStyle.Flat;
@@ -333,6 +343,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(Pic);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             MinimumSize = new Size(1110, 654);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
@@ -353,7 +364,6 @@
         private Panel panel1;
         private Panel panel2;
         private PictureBox Pic;
-        private Button PicColor;
         private Button BtnColor;
         private Button BtnEraser;
         private Button BtnPencil;
@@ -369,5 +379,7 @@
         private Panel panel4;
         private Button BtnClear;
         private SaveFileDialog SaveFileDialog1;
+        private ColorDialog ColorDialog1;
+        private Panel PicColor;
     }
 }
