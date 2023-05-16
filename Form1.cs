@@ -28,6 +28,11 @@ namespace Paint
             FormController.EndDrawing(Pic, E.Location);
         }
 
+        private void ColorPicker_MouseClick(object Sender, MouseEventArgs E)
+        {
+            FormController.PickColor(ColorPicker, PicColor, E.Location);
+        }
+
         private void BtnColor_Click(object Sender, EventArgs E)
         {
             ColorDialog1.ShowDialog();
@@ -64,6 +69,11 @@ namespace Paint
             FormController.CurrentTool = Tool.Line;
         }
 
+        private void Pic_Paint(object Sender, PaintEventArgs E)
+        {
+            FormController.DrawFigure(E.Graphics);
+        }
+
         private void NumericLineWitdth_ValueChanged(object Sender, EventArgs E)
         {
             FormController.SetPenWidth((float)NumericLineWitdth.Value);
@@ -77,16 +87,6 @@ namespace Paint
         private void BtnSave_Click(object Sender, EventArgs E)
         {
             Controller.SaveImage(Pic, SaveFileDialog1);
-        }
-
-        private void Pic_Paint(object Sender, PaintEventArgs E)
-        {
-            FormController.DrawFigure(E.Graphics);
-        }
-
-        private void ColorPicker_MouseClick(object Sender, MouseEventArgs E)
-        {
-            FormController.PickColor(ColorPicker, PicColor, E.Location);
         }
     }
 }
