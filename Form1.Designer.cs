@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             panel1 = new Panel();
             PicColor = new Panel();
             label1 = new Label();
@@ -68,7 +69,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1094, 110);
+            panel1.Size = new Size(1110, 110);
             panel1.TabIndex = 0;
             // 
             // PicColor
@@ -270,9 +271,9 @@
             panel2.BackColor = Color.FromArgb(64, 64, 64);
             panel2.Controls.Add(panel4);
             panel2.Dock = DockStyle.Bottom;
-            panel2.Location = new Point(0, 565);
+            panel2.Location = new Point(0, 604);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1094, 50);
+            panel2.Size = new Size(1110, 50);
             panel2.TabIndex = 1;
             // 
             // panel4
@@ -327,7 +328,7 @@
             Pic.Dock = DockStyle.Fill;
             Pic.Location = new Point(0, 0);
             Pic.Name = "Pic";
-            Pic.Size = new Size(1094, 615);
+            Pic.Size = new Size(1110, 654);
             Pic.TabIndex = 2;
             Pic.TabStop = false;
             Pic.Paint += Pic_Paint;
@@ -339,15 +340,16 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1094, 615);
+            ClientSize = new Size(1110, 654);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(Pic);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(1110, 654);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "Paint";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)NumericLineWitdth).EndInit();
